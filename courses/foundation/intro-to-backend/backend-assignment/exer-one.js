@@ -1,73 +1,48 @@
 
-import express from 'express';
+import express from "express";
+import knex from "knex";
+
+const dbFile = "./database.sqlite3"
+
 const app = express();
 const port = 3000;
 
-const users = [
-  "Aarika Ellingworth",
-  "Pren Goldsworthy",
-  "Pablo Kisbee",
-  "Rodie Duncan",
-  "Aubry Polak",
-  "Maryrose Meadows",
-  "Pavel Brushneen",
-  "Hedy Gerault",
-  "王秀英",
-  "إلياس",
-  "Donald Duck",
-  "Adam Smith",
-  "Emebet" ];
-
-
-
-
-// Route 1: All users 
-app.get('/all-users', (req, res) => {
-  res.json(users);
+// This connects to the database stored in the file mentioned below
+const knexInstance = knex({
+  client: "sqlite3",
+  connection: {
+    filename: dbFile,
+  },
+  useNullAsDefault: true,  // Omit warning in console
 });
 
-
-   
-
-// Route 2: Recent users
-app.get('/recent-users', (req, res) => {
-  const recent = users.slice(-5); // last 5 entries
-  res.json(recent);
+app.get("/", (req, res) => {
+  res.send("Hello from exercise 2!");
 });
 
-
-// Route 3: User count
-app.get('/user-count', (req, res) => {
-  res.json({ count: users.length });
+//  the first route, /all-users, which returns all users sorted by their ID
+app.get("/all-users", async (req, res) => {
+  try {
+    const rows = await knexInstance("user").select("*").orderBy("id", "asc");
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
+// second route
 
-// Home route (HTML page)
-app.get('/', (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>User Dashboard</title>
-        <style>
-          body { font-family: Arial; text-align: center; margin-top: 100px; }
-          .count { font-size: 3em; color: #1187e8ff; }
-        </style>
-      </head>
-      <body>
-        <h1>Total Users</h1>
-        <div id="user-count" class="count">Loading...</div>
-        <script>
-          fetch('/user-count')
-            .then(r => r.json())
-            .then(data => {
-              document.getElementById('user-count').textContent = data.count;
-            });
-        </script>
-      </body>
-    </html>
-  `);
+app.get("/only-names", async (req, res) => {
+  const nameRows = await knexInstance.raw("SELECT first_name, last_name FROM user ORDER BY id ASC;");
+  res.json(nameRows);
 });
+
+// third route
+app.get("/only-emails", async (req, res) => {
+  const emailRows = await knexInstance.raw("SELECT email FROM user ORDER BY email ASC;");
+  res.json(emailRows);
+});
+
 
 
 
