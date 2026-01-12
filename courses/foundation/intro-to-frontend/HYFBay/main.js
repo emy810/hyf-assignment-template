@@ -7,23 +7,30 @@ console.log(products);
 function renderProducts(products) {
   
   // your code goes here
+  const productsList = document.querySelector("#productsList");
+
   
-  const ul = document.querySelector("ul"); 
-  ul.innerHTML = ""; 
+  productsList.innerHTML = "";
 
   products.forEach(product => {
     const li = document.createElement("li");
 
-    li.innerHTML = `
-      <h3>${product.name}</h3>
-      <p>Price: ${product.price}</p>
-      <p>Rating: ${product.rating}</p>
-    `;
+    const name = document.createElement("h2"); 
+    name.textContent = product.name;
 
-    ul.appendChild(li);
+    const price = document.createElement("p");
+    price.textContent = `Price: ${product.price}`;
+
+    const rating = document.createElement("p");
+    rating.textContent = `Rating: ${product.rating}`;
+
+    li.appendChild(name);
+    li.appendChild(price);
+    li.appendChild(rating);
+
+    productsList.appendChild(li);
   });
-
-  }
+}
 
 
 renderProducts(products); 
