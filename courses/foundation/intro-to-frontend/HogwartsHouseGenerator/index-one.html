@@ -4,50 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Hogwarts House Generator</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    #result {
-      margin-top: 20px;
-      font-size: 1.4rem;
-      font-weight: bold;
-    }
-  </style>
+  
 </head>
 <body>
 
   <h1>Hogwarts House Generator</h1>
 
- 
+ <label for="nameInput">Your Name</label>
   <input id="nameInput" type="text" placeholder="Enter your name">
-  <button id="sortButton">Sort Me!</button>
+  <button id="sortButton" type="button">Sort Me!</button>
 
-  <p id="result"></p>
-
-  <script>
-    
-    const houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"];
-
-    
-    document.getElementById("sortButton").addEventListener("click", function () {
-      const name = document.getElementById("nameInput").value.trim();
-
-      
-      if (name === "") {
-        document.getElementById("result").textContent = "Please enter your name first!";
-        return;
-      }
-
-     
-      const randomHouse = houses[Math.floor(Math.random() * houses.length)]; // generating a NEW random house each time.
-
-      
-      
-      document.getElementById("result").textContent = `${name} belongs in ${randomHouse}!`;
-    });
-  </script>
+  <p id="result" class="result"></p>
+  <link rel="stylesheet" href="styles.css">
+<script src="main.js"></script>
 
 </body>
 </html>
+
+  
+      
