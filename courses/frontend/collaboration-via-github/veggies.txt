@@ -1,5 +1,5 @@
 carrot
 broccli
-potato
+tomato
 cucumber
 lettuce
