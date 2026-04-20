@@ -1,11 +1,9 @@
-
-function Button () {
-    return <button className = "btn primary">Primary Button</button>;
-
+function Button({ text, onClick }) {
+  return (
+    <button className="button" onClick={onClick}>
+      {text}
+    </button>
+  );
 }
+
 export default Button;
-
-
-    
-
-    
