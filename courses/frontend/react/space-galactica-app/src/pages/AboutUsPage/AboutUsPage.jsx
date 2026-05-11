@@ -100,7 +100,7 @@ const OurCrew = () => {
 
         <div className={styles.crewMember}>
           <img
-            src="/crew/placeholder.jpg"
+            src="/crew/image-hana-lee.png"
             alt="Hana Lee"
             className={styles.crewImage}
           />
